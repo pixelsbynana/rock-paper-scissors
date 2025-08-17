@@ -8,8 +8,6 @@
 <body>
     
     <script>
-        let humanScore = 0
-        let computerScore = 0
 
         function getComputerChoice() {
             const randomNumber = Math.random();
@@ -28,11 +26,48 @@
             return humanChoice;
         }
 
-        function playRound(humanChoice, computerChoice) {
+        function playGame() {
+            let humanScore = 0
+            let computerScore = 0
 
+            function playRound(humanChoice, computerChoice) {
+            humanChoice = humanChoice.toLowerCase();
+
+            if (humanChoice === computerChoice) {
+                console.log(`It's a tie! Both chose ${humanChoice}`);
+                return;
+            }
+
+            if ((humanChoice === "rock" && computerChoice === "scissors")
+                || (humanChoice === "paper" && computerChoice === "rock")
+                ||  (humanChoice === "scissors" && computerChoice === "paper")) {
+                    humanScore++;
+                    console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+                } else {
+                    computerScore++;
+                    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+                }
+            }
+
+            console.log("Welcome to Rock Paper Scissors! Playing 5 rounds..");
+
+            for (let i = 1; i <= 5; i++) {
+                console.log(`Round ${i}:`);
+                playRound(getHumanChoice(), getComputerChoice());
+                console.log(`Score - Human: ${humanScore}, Computer ${computerScore}`);
+            }
+
+            console.log("FINAL RESULTS");
+            if (humanScore > computerScore) {
+                console.log(`You win the game! Final score - Human: ${humanScore}, Computer ${computerScore}`);
+            } else if (computerScore > humanScore) {
+                console.log(`Computer wins the game! Final score - Human: ${humanScore}, Computer ${computerScore}`);
+            } else {
+                console.log(`It's a tie game! Final score - Human: ${humanScore}, Computer ${computerScore}`);
+            }
         }
 
-        console.log(getHumanChoice())
+        playGame();
     </script>
 </body>
 </html>
